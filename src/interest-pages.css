@@ -1,0 +1,183 @@
+
+.it-open {
+  cursor: pointer;
+}
+
+
+.iv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: var(--bg);
+  overflow-y: auto;
+  animation: iv-in 0.35s ease;
+}
+
+@keyframes iv-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.iv-panel {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 24px) 24px 80px;
+  outline: none;
+}
+
+.iv-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.iv-head {
+  margin-bottom: 48px;
+}
+
+.iv-head h2 {
+  margin: 10px 0 14px;
+}
+
+
+.ivp-sport .court {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin: 0 auto 40px;
+  display: block;
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+}
+
+.ivp-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 48px;
+}
+
+.ivp-stats div {
+  background: var(--bg);
+  padding: 20px;
+  text-align: center;
+}
+
+.ivp-stats b {
+  display: block;
+  font: 700 1.8rem 'Space Grotesk', sans-serif;
+  color: var(--acc);
+}
+
+.ivp-stats span {
+  font: 400 11px 'IBM Plex Mono', monospace;
+  color: var(--mut);
+}
+
+.ivp-story {
+  display: grid;
+  gap: 24px;
+}
+
+.ivp-story-item {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.ivp-story-item p {
+  margin-top: 8px;
+  color: var(--mut);
+  max-width: 60ch;
+}
+
+
+.ivp-tracks {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.ivp-track {
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+}
+
+.ivp-cover {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  background: linear-gradient(135deg, hsl(var(--hue) 70% 55%), hsl(var(--hue) 70% 30%));
+}
+
+.ivp-track-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ivp-track-info span {
+  color: var(--mut);
+  font-size: 13px;
+}
+
+.ivp-genre {
+  color: var(--mut);
+}
+
+
+.ivp-books {
+  display: grid;
+  gap: 20px;
+}
+
+.ivp-book {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.ivp-spine {
+  width: 56px;
+  height: 80px;
+  background: linear-gradient(180deg, hsl(var(--hue) 60% 50%), hsl(var(--hue) 60% 30%));
+}
+
+.ivp-book b {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.ivp-book .mono {
+  display: block;
+  margin: 2px 0 8px;
+}
+
+.ivp-book p {
+  color: var(--mut);
+  max-width: 55ch;
+}
+
+@media (max-width: 600px) {
+  .ivp-stats {
+    grid-template-columns: 1fr;
+  }
+  .ivp-book {
+    grid-template-columns: 40px 1fr;
+  }
+}

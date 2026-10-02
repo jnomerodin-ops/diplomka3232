@@ -1,0 +1,745 @@
+:root {
+    --bg: #F2F2F0;
+    --fg: #161618;
+    --mut: #66666c;
+    --line: rgba(0, 0, 0, .14);
+    --acc: #B5720F;
+    --card: rgba(255, 255, 255, .6);
+    --mx: -999px;
+    --my: -999px;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px)
+}
+
+@media (prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #1B1B1D;
+        --fg: #F5F5F5;
+        --mut: #9c9ca4;
+        --line: rgba(255, 255, 255, .15);
+        --acc: #E0A233;
+        --card: rgba(255, 255, 255, .04)
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: #1B1B1D;
+    --fg: #F5F5F5;
+    --mut: #9c9ca4;
+    --line: rgba(255, 255, 255, .15);
+    --acc: #E0A233;
+    --card: rgba(255, 255, 255, .04)
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    margin: 0
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: env(safe-area-inset-top, 0px)
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 400 16px/1.65 Inter, system-ui, sans-serif;
+    overflow-x: hidden
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal
+}
+
+#bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask: radial-gradient(260px circle at var(--mx) var(--my), #000, transparent);
+    mask: radial-gradient(260px circle at var(--mx) var(--my), #000, transparent)
+}
+
+main,
+header,
+footer {
+    position: relative;
+    z-index: 2
+}
+
+a {
+    color: inherit;
+    text-decoration: none
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    cursor: pointer
+}
+
+:focus-visible {
+    outline: 2px solid var(--acc);
+    outline-offset: 3px
+}
+
+.mono {
+    font: 500 12px 'IBM Plex Mono', ui-monospace, monospace;
+    letter-spacing: .06em;
+    color: var(--acc)
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Space Grotesk', Inter, sans-serif;
+    line-height: 1.02;
+    letter-spacing: -.02em
+}
+
+#prog {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: var(--acc);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    z-index: 60
+}
+
+header {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0;
+    right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px clamp(16px, 4vw, 40px);
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 60%, transparent)
+}
+
+.logo {
+    font: 700 20px 'Space Grotesk', sans-serif
+}
+
+.logo b {
+    color: var(--acc)
+}
+
+nav {
+    display: flex;
+    gap: 22px;
+    font: 500 13px 'IBM Plex Mono', monospace
+}
+
+nav a {
+    position: relative;
+    padding: 4px 0
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: var(--acc);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform .4s cubic-bezier(.2, .8, .2, 1)
+}
+
+nav a:hover::after {
+    transform: scaleX(1)
+}
+
+.ctl {
+    display: flex;
+    gap: 8px
+}
+
+.pill {
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    padding: 6px 14px;
+    font: 500 12px 'IBM Plex Mono', monospace;
+    transition: .3s
+}
+
+.pill:hover {
+    border-color: var(--acc);
+    color: var(--acc);
+    transform: translateY(-2px)
+}
+
+.sec {
+    max-width: 1200px;
+    margin: auto;
+    padding: 120px 24px 40px
+}
+
+.hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 140px
+}
+
+#name {
+    font-size: clamp(2.6rem, 9.4vw, 8.6rem);
+    font-weight: 700;
+    margin: 14px 0 26px;
+    background: radial-gradient(500px circle at var(--mx) var(--my), var(--acc), var(--fg) 60%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    min-height: 2.1em
+}
+
+#name i {
+    font-style: normal;
+    color: var(--acc);
+    -webkit-text-fill-color: var(--acc)
+}
+
+.lead {
+    max-width: 56ch;
+    color: var(--mut);
+    font-size: clamp(1rem, 1.6vw, 1.2rem)
+}
+
+.stamp {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+    margin-top: 44px;
+    background: var(--card);
+    backdrop-filter: blur(6px)
+}
+
+.stamp div {
+    padding: 14px 18px;
+    border-right: 1px solid var(--line)
+}
+
+.stamp div:last-child {
+    border: 0
+}
+
+.stamp span {
+    display: block;
+    font: 400 11px 'IBM Plex Mono', monospace;
+    color: var(--mut)
+}
+
+.stamp b {
+    font: 500 15px Inter, sans-serif
+}
+
+.btns {
+    display: flex;
+    gap: 14px;
+    margin-top: 34px;
+    flex-wrap: wrap
+}
+
+.btn {
+    position: relative;
+    padding: 14px 28px;
+    border: 1px solid var(--fg);
+    font: 500 14px 'IBM Plex Mono', monospace;
+    overflow: hidden;
+    transition: color .4s, transform .2s;
+    will-change: transform
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--acc);
+    transform: translateY(101%);
+    transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+    z-index: -1
+}
+
+.btn:hover {
+    color: #161618;
+    border-color: var(--acc)
+}
+
+.btn:hover::before {
+    transform: none
+}
+
+.btn {
+    z-index: 0;
+    isolation: isolate
+}
+
+.mq {
+    overflow: hidden;
+    border-block: 1px solid var(--line);
+    padding: 18px 0;
+    margin-top: 60px;
+    background: color-mix(in srgb, var(--bg) 70%, transparent)
+}
+
+.mq div {
+    display: flex;
+    width: max-content;
+    animation: mq 30s linear infinite
+}
+
+.mq span {
+    font: 700 clamp(2rem, 5vw, 4rem) 'Space Grotesk', sans-serif;
+    padding-right: 40px;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--fg);
+    transition: .3s
+}
+
+.mq span:hover {
+    color: var(--acc);
+    -webkit-text-stroke-color: var(--acc)
+}
+
+@keyframes mq {
+    to {
+        transform: translateX(-50%)
+    }
+}
+
+h2 {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    margin: 8px 0 44px
+}
+
+.rv {
+    opacity: 0;
+    transform: translateY(46px) scale(.98);
+    filter: blur(8px);
+    transition: opacity .9s, transform .9s cubic-bezier(.2, .8, .2, 1), filter .9s;
+    transition-delay: var(--d, 0s)
+}
+
+.rv.in {
+    opacity: 1;
+    transform: none;
+    filter: none
+}
+
+.about {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    align-items: start
+}
+
+.about p {
+    color: var(--mut);
+    max-width: 60ch
+}
+
+.nums {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line)
+}
+
+.nums div {
+    background: var(--bg);
+    padding: 22px
+}
+
+.nums b {
+    display: block;
+    font: 700 2.6rem 'Space Grotesk', sans-serif;
+    color: var(--acc)
+}
+
+.sk {
+    margin-bottom: 22px
+}
+
+.sk header,
+.sk .row {
+    position: static;
+    display: flex;
+    justify-content: space-between;
+    font: 500 13px 'IBM Plex Mono', monospace;
+    padding: 0 0 8px;
+    backdrop-filter: none;
+    background: none
+}
+
+.bar {
+    height: 14px;
+    border: 1px solid var(--line);
+    position: relative;
+    background: repeating-linear-gradient(90deg, transparent 0 9px, var(--line) 9px 10px)
+}
+
+.bar i {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0;
+    background: var(--acc);
+    transition: width 1.6s cubic-bezier(.2, .8, .2, 1);
+    transition-delay: var(--d, 0s)
+}
+
+.in .bar i {
+    width: var(--w)
+}
+
+.car {
+    position: relative
+}
+
+.track {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 20px 4px 30px;
+    scrollbar-width: none
+}
+
+.track::-webkit-scrollbar {
+    display: none
+}
+
+.card {
+    flex: 0 0 min(360px, 82%);
+    scroll-snap-align: start;
+    border: 1px solid var(--line);
+    background: var(--card);
+    backdrop-filter: blur(6px);
+    padding: 14px;
+    position: relative;
+    transform: perspective(900px) rotateX(var(--rx, 0)) rotateY(var(--ry, 0));
+    transition: transform .25s ease-out, border-color .3s
+}
+
+.card::before,
+.card::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--acc);
+    transition: .35s
+}
+
+.card::before {
+    top: -2px;
+    left: -2px;
+    border-right: 0;
+    border-bottom: 0
+}
+
+.card::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: 0;
+    border-top: 0
+}
+
+.card:hover::before,
+.card:hover::after {
+    width: 44px;
+    height: 44px
+}
+
+.card:hover {
+    border-color: var(--acc)
+}
+
+.card svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 14px;
+    background: color-mix(in srgb, var(--bg) 80%, transparent)
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin: 4px 0 8px
+}
+
+.card p {
+    color: var(--mut);
+    font-size: 14px
+}
+
+.tags {
+    margin: 12px 0;
+    font: 400 12px 'IBM Plex Mono', monospace;
+    color: var(--mut)
+}
+
+.lk {
+    font: 500 13px 'IBM Plex Mono', monospace;
+    color: var(--acc);
+    display: inline-block;
+    background: linear-gradient(currentColor, currentColor) 0 100%/0 1px no-repeat;
+    transition: background-size .4s
+}
+
+.lk:hover {
+    background-size: 100% 1px
+}
+
+.arrows {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 0;
+    top: -70px
+}
+
+.arrows .pill {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    font-size: 18px
+}
+
+.tl {
+    position: relative;
+    padding-left: 40px
+}
+
+.tl::before,
+.tl .fill {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line)
+}
+
+.tl .fill {
+    background: var(--acc);
+    width: 2px;
+    left: 7.5px;
+    bottom: auto;
+    height: 0
+}
+
+.ti {
+    position: relative;
+    padding-bottom: 40px
+}
+
+.ti::before {
+    content: "";
+    position: absolute;
+    left: -40px;
+    top: 6px;
+    width: 17px;
+    height: 17px;
+    border: 2px solid var(--acc);
+    background: var(--bg);
+    transform: rotate(45deg) scale(.6);
+    transition: .5s
+}
+
+.ti.in::before {
+    background: var(--acc);
+    transform: rotate(45deg) scale(1)
+}
+
+.ti h3 {
+    font-size: 1.4rem
+}
+
+.ti p {
+    color: var(--mut);
+    max-width: 60ch
+}
+
+.ig {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px
+}
+
+.it {
+    border: 1px solid var(--line);
+    padding: 26px 10px;
+    text-align: center;
+    font: 500 13px 'IBM Plex Mono', monospace;
+    background: var(--card);
+    transition: .35s
+}
+
+.it em {
+    display: block;
+    font-style: normal;
+    font-size: 2.2rem;
+    transition: transform .5s cubic-bezier(.3, 1.6, .5, 1)
+}
+
+.it:hover {
+    border-color: var(--acc);
+    transform: translateY(-6px) rotate(-2deg)
+}
+
+.it:hover em {
+    transform: scale(1.35) rotate(12deg)
+}
+
+.mail {
+    display: block;
+    font: 700 clamp(1.8rem, 7vw, 5.6rem) 'Space Grotesk', sans-serif;
+    letter-spacing: -.03em;
+    word-break: break-all;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--fg);
+    background: linear-gradient(var(--acc), var(--acc)) 0 0/0 100% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: background-size .7s cubic-bezier(.2, .8, .2, 1)
+}
+
+.mail:hover {
+    background-size: 100% 100%;
+    -webkit-text-stroke-color: var(--acc)
+}
+
+.crow {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+    font: 500 14px 'IBM Plex Mono', monospace;
+    transition: .3s
+}
+
+.crow:hover {
+    padding-left: 16px;
+    color: var(--acc)
+}
+
+footer {
+    text-align: center;
+    padding: 60px 24px 40px;
+    color: var(--mut);
+    font: 400 12px 'IBM Plex Mono', monospace
+}
+
+#cd,
+#cr {
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    z-index: 100;
+    border-radius: 50%;
+    display: none
+}
+
+#cd {
+    width: 8px;
+    height: 8px;
+    background: var(--acc);
+    margin: -4px
+}
+
+#cr {
+    width: 38px;
+    height: 38px;
+    margin: -19px;
+    border: 1px solid var(--acc);
+    transition: width .3s, height .3s, margin .3s, background .3s
+}
+
+#cr.h {
+    width: 70px;
+    height: 70px;
+    margin: -35px;
+    background: color-mix(in srgb, var(--acc) 18%, transparent)
+}
+
+@media (pointer:fine) {
+
+    #cd,
+    #cr {
+        display: block
+    }
+
+    body,
+    a,
+    button {
+        cursor: none
+    }
+}
+
+.rip {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    margin: -5px;
+    border: 2px solid var(--acc);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99;
+    animation: rip .9s ease-out forwards
+}
+
+@keyframes rip {
+    to {
+        transform: scale(14);
+        opacity: 0
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01s !important;
+        animation-duration: .01s !important;
+        animation-iteration-count: 1 !important
+    }
+
+    .rv {
+        opacity: 1;
+        transform: none;
+        filter: none
+    }
+}

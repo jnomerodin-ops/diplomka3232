@@ -1,0 +1,18 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { ThemeProvider } from './context/ThemeContext'
+import { LangProvider } from './context/LangContext'
+import App from './App'
+import './index.css'
+import './media.css'
+import './interest-pages.css'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <ThemeProvider>
+      <LangProvider>
+        <App />
+      </LangProvider>
+    </ThemeProvider>
+  </StrictMode>,
+)
